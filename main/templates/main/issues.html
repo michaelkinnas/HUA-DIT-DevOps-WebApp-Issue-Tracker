@@ -1,12 +1,13 @@
 {% extends 'main/base.html' %}
 
-{% block title %} Issues Overview {% endblock %}
+{% block title %} {{project.title}} issues {% endblock %}
 
 {% block content %}
 
-<h2 class="mt-2">Issues overview</h2>
+<h2 class="mt-2">Issues for {{project.title}}</h2>
 <hr class="mt-0 mb-4">
-{% for issue in issues %}
+
+{% for issue in project.issue_set.all %}
 {% if issue.type == 'B' %}
 <div class="card border-danger mb-3">
     <div class="card-header text-danger">
@@ -23,8 +24,9 @@
 
     <div class="card-body ">
         <h5 class="card-title">{{issue.title}}</h5>
-        <!-- <p class="card-text">{{issue.details}}</p> -->
-        <a href="issue/{{issue.id}}" class="btn btn-primary">Details</a>
+        <!-- <p class="card-text">{{issue.description}}</p> -->
+        <!-- <a href="/issue/{{project.id}}/{{issue.id}}" class="btn btn-primary">Details</a> -->
+        <a href="/issue/{{issue.id}}" class="btn btn-primary">Details</a>
     </div>
     <div class="card-footer bg-transparent border-danger">
         Opened on
@@ -46,8 +48,9 @@
     </div>
     <div class="card-body ">
         <h5 class="card-title">{{issue.title}}</h5>
-        <!-- <p class="card-text">{{issue.details}}</p> -->
-        <a href="issue/{{issue.id}}" class="btn btn-primary">Details</a>
+        <!-- <p class="card-text">{{issue.description}}</p> -->
+        <!-- <a href="/issue/{{project.id}}/{{issue.id}}" class="btn btn-primary">Details</a> -->
+        <a href="/issue/{{issue.id}}" class="btn btn-primary">Details</a>
     </div>
     <div class="card-footer bg-transparent border-success">
         Opened on
@@ -68,8 +71,9 @@
     </div>
     <div class="card-body ">
         <h5 class="card-title">{{issue.title}}</h5>
-        <!-- <p class="card-text">{{issue.details}}</p> -->
-        <a href="issue/{{issue.id}}" class="btn btn-primary">Details</a>
+        <!-- <p class="card-text">{{issue.description}}</p> -->
+        <!-- <a href="/issue/{{project.id}}/{{issue.id}}" class="btn btn-primary">Details</a> -->
+        <a href="/issue/{{issue.id}}" class="btn btn-primary">Details</a>
     </div>
     <div class="card-footer bg-transparent border-primary">
         Opened on

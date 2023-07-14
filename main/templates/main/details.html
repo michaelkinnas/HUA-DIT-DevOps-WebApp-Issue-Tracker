@@ -1,8 +1,10 @@
 {% extends 'main/base.html' %}
 
-{% block title %} Issues Overview {% endblock %}
+{% block title %} Issue #{{issue.id}} {% endblock %}
 
 {% block content %}
+<a href="/issues/{{issue.project.id}}">Go back to project issues</a>
+
 <h3>Issue #{{issue.id}}</h3>
 
 <div class="card">
@@ -12,7 +14,7 @@
     <div class="card-body">
         <h5 class="card-title">{{issue.title}}</h5>
 
-        <p class="card-text">{{issue.details}}</p>
+        <p class="card-text">{{issue.description}}</p>
         <hr>
         </hr>
         <!-- <p> -->
@@ -47,8 +49,8 @@
                     <button type="submit" class="btn btn-primary mb-3" name="save" value="save">Save</button>
                 </div>
             </div>
+        </form>
     </div>
-    </form>
 </div>
 <div class="card-footer text-muted">
     Opened on {{issue.date_created}} by ...
