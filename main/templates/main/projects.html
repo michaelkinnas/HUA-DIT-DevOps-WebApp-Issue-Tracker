@@ -1,10 +1,23 @@
 {% extends 'main/base.html' %}
 
-{% block title %} Issues Overview {% endblock %}
+{% block title %} Projects {% endblock %}
 
 {% block content %}
-
+<h2 class="mt-2">Projects</h2>
+<hr class="mt-0 mb-4">
 {% for project in projects %}
-<a href="issues/{{project.id}}">{{project.title}}</a>
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">{{project.title}}</h5>
+        <!-- <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6> -->
+        <p class="card-text">{{project.description}}</p>
+        <!-- <a href="issues/{{project.id}}" class="card-link">Issues</a> -->
+        <a class="btn btn-primary" href="issues/{{project.id}}" role="button">Issues</a>
+        <!-- <a href="#" class="card-link">Another link</a> -->
+    </div>
+    <!-- </div>
+   
+<a href="issues/{{project.id}}">{{project.title}}</a> -->
+</div>
 {% endfor %}
 {% endblock %}

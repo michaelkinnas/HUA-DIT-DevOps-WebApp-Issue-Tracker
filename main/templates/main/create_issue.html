@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %}
+
+
+{% block title %} Create New List {% endblock%}
+
+{% block content %}
+
+<form action="/create_issue/{{project_id}}" method="post">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" value="Submit" />
+</form>
+
+
+{% endblock %}

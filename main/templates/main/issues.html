@@ -3,14 +3,18 @@
 {% block title %} {{project.title}} issues {% endblock %}
 
 {% block content %}
-
-<h2 class="mt-2">Issues for {{project.title}}</h2>
+<div style="display: flex; justify-content: space-between;">
+    <h2 class="mt-2">Issues for {{project.title}}</h2>
+</div>
 <hr class="mt-0 mb-4">
-
+<div style="display: flex; justify-content: space-between; margin-bottom: 10px">
+    <span></span>
+    <a class="btn btn-primary" href="/create_issue/{{project.id}}" role="button">Create new issue</a>
+</div>
 {% for issue in project.issue_set.all %}
 {% if issue.type == 'B' %}
 <div class="card border-danger mb-3">
-    <div class="card-header text-danger">
+    <div class="card-header text-danger" style="display: flex; justify-content: space-between;">
         <b>{{issue.get_type_display}}</b>
         {%if issue.status == 'C'%}
         <span class="badge bg-secondary">{{issue.get_status_display}}</span>
@@ -20,23 +24,18 @@
         <span class="badge bg-warning text-dark">{{issue.get_status_display}}</span>
         {%endif%}
     </div>
-
-
     <div class="card-body ">
         <h5 class="card-title">{{issue.title}}</h5>
-        <!-- <p class="card-text">{{issue.description}}</p> -->
-        <!-- <a href="/issue/{{project.id}}/{{issue.id}}" class="btn btn-primary">Details</a> -->
-        <a href="/issue/{{issue.id}}" class="btn btn-primary">Details</a>
     </div>
-    <div class="card-footer bg-transparent border-danger">
-        Opened on
-        {{issue.date_created}} by ...
+    <div class="card-footer bg-transparent border-danger" style="display: flex; justify-content: space-between;">
+        <span> Opened on {{issue.date_created}} by ...</span>
+        <a href="/issue/{{issue.id}}" class="btn btn-primary">Details</a>
     </div>
 </div>
 
 {% elif issue.type == 'F'%}
 <div class="card border-success mb-3">
-    <div class="card-header text-success">
+    <div class="card-header text-success" style="display: flex; justify-content: space-between;">
         <b>{{issue.get_type_display}}</b>
         {%if issue.status == 'C'%}
         <span class="badge bg-secondary">{{issue.get_status_display}}</span>
@@ -44,22 +43,19 @@
         <span class="badge bg-success">{{issue.get_status_display}}</span>
         {% else %}
         <span class="badge bg-warning text-dark">{{issue.get_status_display}}</span>
-        {%endif%}
+        {% endif %}
     </div>
     <div class="card-body ">
         <h5 class="card-title">{{issue.title}}</h5>
-        <!-- <p class="card-text">{{issue.description}}</p> -->
-        <!-- <a href="/issue/{{project.id}}/{{issue.id}}" class="btn btn-primary">Details</a> -->
-        <a href="/issue/{{issue.id}}" class="btn btn-primary">Details</a>
     </div>
-    <div class="card-footer bg-transparent border-success">
-        Opened on
-        {{issue.date_created}} by ...
+    <div class="card-footer bg-transparent border-success" style="display: flex; justify-content: space-between;">
+        <span> Opened on {{issue.date_created}} by ...</span>
+        <a href="/issue/{{issue.id}}" class="btn btn-primary">Details</a>
     </div>
 </div>
 {%else%}
 <div class="card border-primary mb-3">
-    <div class="card-header text-primary">
+    <div class="card-header text-primary" style="display: flex; justify-content: space-between;">
         <b>{{issue.get_type_display}}</b>
         {%if issue.status == 'C'%}
         <span class="badge bg-secondary">{{issue.get_status_display}}</span>
@@ -69,15 +65,12 @@
         <span class="badge bg-warning text-dark">{{issue.get_status_display}}</span>
         {%endif%}
     </div>
-    <div class="card-body ">
+    <div class="card-body">
         <h5 class="card-title">{{issue.title}}</h5>
-        <!-- <p class="card-text">{{issue.description}}</p> -->
-        <!-- <a href="/issue/{{project.id}}/{{issue.id}}" class="btn btn-primary">Details</a> -->
-        <a href="/issue/{{issue.id}}" class="btn btn-primary">Details</a>
     </div>
-    <div class="card-footer bg-transparent border-primary">
-        Opened on
-        {{issue.date_created}} by ...
+    <div class="card-footer bg-transparent border-primary" style="display: flex; justify-content: space-between;">
+        <span> Opened on {{issue.date_created}} by ...</span>
+        <a href="/issue/{{issue.id}}" class="btn btn-primary">Details</a>
     </div>
 </div>
 {%endif%}
