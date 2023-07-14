@@ -1,0 +1,57 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Issues Overview {% endblock %}
+
+{% block content %}
+<h3>Issue #{{issue.id}}</h3>
+
+<div class="card">
+    <div class="card-header">
+        <b>{{issue.get_type_display}}</b>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">{{issue.title}}</h5>
+
+        <p class="card-text">{{issue.details}}</p>
+        <hr>
+        </hr>
+        <!-- <p> -->
+        <div class="text-center">
+            {%if issue.status == 'P'%}
+            <h3 style="color:rgb(255, 157, 0);"><b>{{issue.get_status_display}}</b></h3>
+            {%elif issue.status == 'I'%}
+            <h3 style="color:rgb(13, 125, 0);"><b>{{issue.get_status_display}}</b></h3>
+            {%else%}
+            <h3 style="color:rgb(129, 129, 129);"><b>{{issue.get_status_display}}</b></h3>
+            {% endif %}
+        </div>
+        <!-- </p> -->
+        <!-- <div class="dropdown"> -->
+        <form method="POST" action="/issue/{{issue.id}}">
+            {% csrf_token %}
+            <div class="text-center">
+                <div class="col-auto">
+                    <select class="form-select" , aria-label="Default select example" , name="status">
+                        <option selected>Change Status</option>
+                        <option value="P">Pending</option>
+                        <option value="I">In Progress</option>
+                        <option value="C">Completed</option>
+                    </select>
+                    <select class="form-select" , aria-label="Default select example" , name="assign_to">
+                        <option selected>Assign to</option>
+                        <option value="1">Dev1</option>
+                        <option value="2">Dev2</option>
+                        <option value="3">Dev3</option>
+                    </select>
+
+                    <button type="submit" class="btn btn-primary mb-3" name="save" value="save">Save</button>
+                </div>
+            </div>
+    </div>
+    </form>
+</div>
+<div class="card-footer text-muted">
+    Opened on {{issue.date_created}} by ...
+</div>
+</div>
+{% endblock %}

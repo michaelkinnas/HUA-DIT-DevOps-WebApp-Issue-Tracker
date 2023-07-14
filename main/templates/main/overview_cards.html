@@ -1,0 +1,83 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Issues Overview {% endblock %}
+
+{% block content %}
+
+<h2 class="mt-2">Issues overview</h2>
+<hr class="mt-0 mb-4">
+{% for issue in issues %}
+{% if issue.type == 'B' %}
+<div class="card border-danger mb-3">
+    <div class="card-header text-danger">
+        <b>{{issue.get_type_display}}</b>
+        {%if issue.status == 'C'%}
+        <span class="badge bg-secondary">{{issue.get_status_display}}</span>
+        {% elif issue.status == 'I'%}
+        <span class="badge bg-success">{{issue.get_status_display}}</span>
+        {% else %}
+        <span class="badge bg-warning text-dark">{{issue.get_status_display}}</span>
+        {%endif%}
+    </div>
+
+
+    <div class="card-body ">
+        <h5 class="card-title">{{issue.title}}</h5>
+        <!-- <p class="card-text">{{issue.details}}</p> -->
+        <a href="issue/{{issue.id}}" class="btn btn-primary">Details</a>
+    </div>
+    <div class="card-footer bg-transparent border-danger">
+        Opened on
+        {{issue.date_created}} by ...
+    </div>
+</div>
+
+{% elif issue.type == 'F'%}
+<div class="card border-success mb-3">
+    <div class="card-header text-success">
+        <b>{{issue.get_type_display}}</b>
+        {%if issue.status == 'C'%}
+        <span class="badge bg-secondary">{{issue.get_status_display}}</span>
+        {% elif issue.status == 'I'%}
+        <span class="badge bg-success">{{issue.get_status_display}}</span>
+        {% else %}
+        <span class="badge bg-warning text-dark">{{issue.get_status_display}}</span>
+        {%endif%}
+    </div>
+    <div class="card-body ">
+        <h5 class="card-title">{{issue.title}}</h5>
+        <!-- <p class="card-text">{{issue.details}}</p> -->
+        <a href="issue/{{issue.id}}" class="btn btn-primary">Details</a>
+    </div>
+    <div class="card-footer bg-transparent border-success">
+        Opened on
+        {{issue.date_created}} by ...
+    </div>
+</div>
+{%else%}
+<div class="card border-primary mb-3">
+    <div class="card-header text-primary">
+        <b>{{issue.get_type_display}}</b>
+        {%if issue.status == 'C'%}
+        <span class="badge bg-secondary">{{issue.get_status_display}}</span>
+        {% elif issue.status == 'I'%}
+        <span class="badge bg-success">{{issue.get_status_display}}</span>
+        {% else %}
+        <span class="badge bg-warning text-dark">{{issue.get_status_display}}</span>
+        {%endif%}
+    </div>
+    <div class="card-body ">
+        <h5 class="card-title">{{issue.title}}</h5>
+        <!-- <p class="card-text">{{issue.details}}</p> -->
+        <a href="issue/{{issue.id}}" class="btn btn-primary">Details</a>
+    </div>
+    <div class="card-footer bg-transparent border-primary">
+        Opened on
+        {{issue.date_created}} by ...
+    </div>
+</div>
+{%endif%}
+
+{% endfor %}
+
+{% endblock %}
