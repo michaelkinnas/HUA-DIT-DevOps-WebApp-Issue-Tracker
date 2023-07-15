@@ -34,14 +34,13 @@ def create_issue(request, project_id):
             title = form.cleaned_data["title"]
             description = form.cleaned_data["description"]
             date_created = datetime.datetime.now()
-            status = form.cleaned_data["status"]
+            status = "P"
             type = form.cleaned_data["type"]
-            project = Project.objects.get(id=project_id)
-           
+            project = Project.objects.get(id=project_id)           
             issue = Issue(title=title, description=description, date_created=date_created, status=status, type=type, project=project)
             issue.save()
             return HttpResponseRedirect(f"/issues/{project_id}")
-    else: 
-        form = createNewIssue() #in case of GET request, default method is GET
+    else: #if method==GET
+        form = createNewIssue()
     return render(request, "main/create_issue.html", {"form":form, "project_id":project_id})
     
