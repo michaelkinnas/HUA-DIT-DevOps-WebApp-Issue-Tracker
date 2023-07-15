@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+
+
+{% block title %} Create New Project {% endblock%}
+
+{% block content %}
+<h2 class="mt-2">Create new project</h2>
+<hr class="mt-0 mb-4">
+
+
+<div class="mb-3">
+    <!-- <form action="/create_project/" method="post" style="margin-left: 200px; margin-right: 200px;"> -->
+    <form action="/create_project/" method="post">
+        <!-- <div class="mb-3"> -->
+        {% csrf_token %}
+        {{form}}
+        <p></p>
+        <input type="submit" value="Create" class="btn btn-primary" />
+        <!-- </div> -->
+    </form>
+</div>
+
+{% endblock %}

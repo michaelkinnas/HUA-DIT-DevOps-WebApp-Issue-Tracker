@@ -19,3 +19,6 @@ class createNewIssue(forms.Form):
     ]
     type = forms.CharField(label='Type', widget = forms.Select(choices=TYPE, attrs={'class':'form-select'}))
     
+class createNewProject(forms.Form):
+    title = forms.CharField(max_length=64, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Title'}))
+    description = forms.CharField(max_length=256, widget=forms.Textarea(attrs={'class':'form-control', 'placeholder':'Description'}))

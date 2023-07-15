@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 import datetime
 from .models import Issue, Project
-from .forms import createNewIssue
+from .forms import createNewIssue, createNewProject
 
 # Create your views here.
 def home(request):
@@ -25,7 +25,18 @@ def issue(request, issue_id):
     return render(request, "main/details.html", {"issue":issue})
 
 def create_project(request):
-    pass
+    if request.method == "POST":
+        form = createNewProject(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data["title"]
+            description = form.cleaned_data["description"]
+            project = Project(title=title, description=description)
+            project.save()
+            return HttpResponseRedirect(f"/issues/{project.id}")
+    else: #if method==GET
+        form = createNewProject()
+    return render(request, "main/create_project.html", {"form":form})
+    
 
 def create_issue(request, project_id):
     if request.method == "POST":
