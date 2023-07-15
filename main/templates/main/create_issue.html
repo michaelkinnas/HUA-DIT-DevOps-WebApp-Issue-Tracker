@@ -1,6 +1,5 @@
 {% extends 'main/base.html' %}
 
-
 {% block title %} Create New List {% endblock%}
 
 {% block content %}
@@ -11,17 +10,12 @@
         class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Go back to project
         issues</a></p>
 
-<!-- <a href="/issues/{{project_id}}">Go back to project issues</a> -->
-
 <div class="mb-3">
     <form action="/create_issue/{{project_id}}" method="post">
-        <!-- <form action="/create_issue/{{project_id}}" method="post" style="margin-left: 200px; margin-right: 200px;"> -->
-        <!-- <div class="mb-3"> -->
         {% csrf_token %}
         {{form}}
         <p></p>
         <input type="submit" value="Create" class="btn btn-primary" />
-        <!-- </div> -->
     </form>
 </div>
 

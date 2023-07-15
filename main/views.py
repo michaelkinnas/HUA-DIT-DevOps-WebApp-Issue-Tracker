@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 import datetime
 from .models import Issue, Project
 from .forms import createNewIssue, createNewProject

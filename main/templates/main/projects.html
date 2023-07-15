@@ -9,19 +9,17 @@
     <span></span>
     <a class="btn btn-primary" href="/create_project/" role="button">Create new project</a>
 </div>
-{% for project in projects %}
-<div class="card" style="width: 18rem;">
-    <div class="card-body">
-        <h5 class="card-title">{{project.title}}</h5>
-        <!-- <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6> -->
-        <p class="card-text">{{project.description}}</p>
-        <!-- <a href="issues/{{project.id}}" class="card-link">Issues</a> -->
-        <a class="btn btn-primary" href="issues/{{project.id}}" role="button">Issues</a>
-        <!-- <a href="#" class="card-link">Another link</a> -->
+
+<div style=" display: flex;">
+    {% for project in projects %}
+    <div class="card" style="width: 18rem; margin-right: 10px;">
+        <div class="card-body">
+            <h5 class="card-title">{{project.title}}</h5>
+            <p class="card-text">{{project.description}}</p>
+            <a class="btn btn-primary" href="issues/{{project.id}}" role="button">Issues</a>
+        </div>
     </div>
-    <!-- </div>
-   
-<a href="issues/{{project.id}}">{{project.title}}</a> -->
+    {% endfor %}
 </div>
-{% endfor %}
+
 {% endblock %}
