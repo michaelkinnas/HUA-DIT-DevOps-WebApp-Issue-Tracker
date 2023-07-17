@@ -40,9 +40,11 @@
                     </select>
                     <select class="form-select" , aria-label="Default select example" , name="assign_to">
                         <option selected>Assign to</option>
-                        <option value="1">Dev1</option>
-                        <option value="2">Dev2</option>
-                        <option value="3">Dev3</option>
+                        {% for user in users%}
+                        <option value="{{user.id}}">{{user}}</option>
+                        {% endfor %}
+                        <!-- <option value="2">Dev2</option>
+                        <option value="3">Dev3</option> -->
                     </select>
 
                     <button type="submit" class="btn btn-primary mb-3" name="save" value="save">Save</button>
@@ -52,7 +54,12 @@
     </div>
 </div>
 <div class="card-footer text-muted">
-    Opened on {{issue.date_created}} by <b>{{issue.created_by}}</b>
+    Opened on {{issue.date_created}} by <b>{{issue.created_by}},</b>
+    {%if issue.assigned_to%}
+    <span> Assigned to <b>{{issue.assigned_to}}</b></span>
+    {% else %}
+    <span> Not assigned</span>
+    {% endif %}
 </div>
 </div>
 {% endblock %}

@@ -3,6 +3,8 @@ from django.http import HttpResponseRedirect
 import datetime
 from .models import Issue, Project
 from .forms import createNewIssue, createNewProject
+from django.contrib.auth.models import User
+
 
 # Create your views here.
 def home(request):
@@ -20,19 +22,21 @@ def issues(request, project_id):
     project = Project.objects.get(id=project_id)    
     return render(request, "main/issues.html", {"project":project})
 
+#TODO Allow only team leaders to change details of issue
 def issue(request, issue_id):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
     
     if request.method == 'POST':
         status = request.POST.get('status')
-        dev = request.POST.get('assign_to')
+        assigned_to = request.POST.get('assign_to')
         issue = Issue.objects.get(id=issue_id)
         issue.status = status
+        issue.assigned_to = User.objects.get(id=assigned_to)
         issue.save()
-        #implement assign to developer. must add the field to model aswell.
-    issue = Issue.objects.get(id=issue_id)  
-    return render(request, "main/details.html", {"issue":issue})
+    issue = Issue.objects.get(id=issue_id)
+    users = User.objects.all() #TODO Get only users belonging to developer
+    return render(request, "main/details.html", {"issue":issue, "users":users})
 
 def create_project(request):
     if not request.user.is_authenticated:
@@ -66,8 +70,8 @@ def create_issue(request, project_id):
             status = "P"
             type = form.cleaned_data["type"]
             project = Project.objects.get(id=project_id)
-            user = request.user
-            issue = Issue(title=title, description=description, date_created=date_created, status=status, type=type, project=project, user =user)
+            created_by = request.user
+            issue = Issue(title=title, description=description, date_created=date_created, status=status, type=type, project=project, created_by=created_by)
             issue.save()
             return HttpResponseRedirect(f"/issues/{project_id}")
     else: #if method==GET

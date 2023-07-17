@@ -29,6 +29,11 @@
     </div>
     <div class="card-footer bg-transparent border-danger" style="display: flex; justify-content: space-between;">
         <span> Opened on {{issue.date_created}} by <b>{{issue.created_by}}</b></span>
+        {%if issue.assigned_to%}
+        <span> Assigned to <b>{{issue.assigned_to}}</b></span>
+        {% else %}
+        <span> Not assigned</span>
+        {% endif %}
         <a href="/issue/{{issue.id}}" class="btn btn-primary">Details</a>
     </div>
 </div>
@@ -50,6 +55,11 @@
     </div>
     <div class="card-footer bg-transparent border-success" style="display: flex; justify-content: space-between;">
         <span> Opened on {{issue.date_created}} by <b>{{issue.created_by}}</b></span>
+        {%if issue.assigned_to%}
+        <span> Assigned to <b>{{issue.assigned_to}}</b></span>
+        {% else %}
+        <span> Not assigned</span>
+        {% endif %}
         <a href="/issue/{{issue.id}}" class="btn btn-primary">Details</a>
     </div>
 </div>
@@ -70,6 +80,11 @@
     </div>
     <div class="card-footer bg-transparent border-primary" style="display: flex; justify-content: space-between;">
         <span> Opened on {{issue.date_created}} by <b>{{issue.created_by}}</b></span>
+        {%if issue.assigned_to%}
+        <span> Assigned to <b>{{issue.assigned_to}}</b></span>
+        {% else %}
+        <span> Not assigned</span>
+        {% endif %}
         <a href="/issue/{{issue.id}}" class="btn btn-primary">Details</a>
     </div>
 </div>

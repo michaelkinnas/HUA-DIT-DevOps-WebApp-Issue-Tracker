@@ -28,7 +28,7 @@ class Issue(models.Model):
     type = models.CharField(max_length=1, choices=TYPE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     created_by = models.ForeignKey(User, related_name='created_by', on_delete=models.DO_NOTHING)
-    assigned_to = models.ForeignKey(User, related_name='assigned_to',on_delete=models.DO_NOTHING)
+    assigned_to = models.ForeignKey(User, related_name='assigned_to', on_delete=models.DO_NOTHING, null=True)
  
 
     def __str__(self):
