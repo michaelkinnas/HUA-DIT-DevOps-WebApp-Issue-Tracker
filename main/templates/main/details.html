@@ -9,8 +9,6 @@
 </p>
 
 <h3>Issue #{{issue.id}}</h3>
-
-
 <div class="card">
     <div class="card-header">
         <b>{{issue.get_type_display}}</b>
@@ -21,7 +19,6 @@
         <p class="card-text">{{issue.description}}</p>
         <hr>
         </hr>
-        <!-- <p> -->
         <div class="text-center">
             {%if issue.status == 'P'%}
             <h3 style="color:rgb(255, 157, 0);"><b>{{issue.get_status_display}}</b></h3>
@@ -31,8 +28,6 @@
             <h3 style="color:rgb(129, 129, 129);"><b>{{issue.get_status_display}}</b></h3>
             {% endif %}
         </div>
-        <!-- </p> -->
-        <!-- <div class="dropdown"> -->
         <form method="POST" action="/issue/{{issue.id}}">
             {% csrf_token %}
             <div class="text-center">
@@ -57,7 +52,7 @@
     </div>
 </div>
 <div class="card-footer text-muted">
-    Opened on {{issue.date_created}} by ...
+    Opened on {{issue.date_created}} by <b>{{issue.created_by}}</b>
 </div>
 </div>
 {% endblock %}

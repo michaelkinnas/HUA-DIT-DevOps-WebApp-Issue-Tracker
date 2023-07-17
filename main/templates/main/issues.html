@@ -28,7 +28,7 @@
         <h5 class="card-title">{{issue.title}}</h5>
     </div>
     <div class="card-footer bg-transparent border-danger" style="display: flex; justify-content: space-between;">
-        <span> Opened on {{issue.date_created}} by ...</span>
+        <span> Opened on {{issue.date_created}} by <b>{{issue.created_by}}</b></span>
         <a href="/issue/{{issue.id}}" class="btn btn-primary">Details</a>
     </div>
 </div>
@@ -49,7 +49,7 @@
         <h5 class="card-title">{{issue.title}}</h5>
     </div>
     <div class="card-footer bg-transparent border-success" style="display: flex; justify-content: space-between;">
-        <span> Opened on {{issue.date_created}} by ...</span>
+        <span> Opened on {{issue.date_created}} by <b>{{issue.created_by}}</b></span>
         <a href="/issue/{{issue.id}}" class="btn btn-primary">Details</a>
     </div>
 </div>
@@ -69,7 +69,7 @@
         <h5 class="card-title">{{issue.title}}</h5>
     </div>
     <div class="card-footer bg-transparent border-primary" style="display: flex; justify-content: space-between;">
-        <span> Opened on {{issue.date_created}} by ...</span>
+        <span> Opened on {{issue.date_created}} by <b>{{issue.created_by}}</b></span>
         <a href="/issue/{{issue.id}}" class="btn btn-primary">Details</a>
     </div>
 </div>

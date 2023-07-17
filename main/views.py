@@ -6,14 +6,24 @@ from .forms import createNewIssue, createNewProject
 
 # Create your views here.
 def home(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/login')
+    
     projects = Project.objects.all()
-    return render(request, "main/projects.html", {"projects":projects})
+    return render(request, "main/projects.html", {"projects":projects}) 
+        
 
 def issues(request, project_id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/login')
+
     project = Project.objects.get(id=project_id)    
     return render(request, "main/issues.html", {"project":project})
 
 def issue(request, issue_id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/login')
+    
     if request.method == 'POST':
         status = request.POST.get('status')
         dev = request.POST.get('assign_to')
@@ -25,6 +35,9 @@ def issue(request, issue_id):
     return render(request, "main/details.html", {"issue":issue})
 
 def create_project(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/login')
+    
     if request.method == "POST":
         form = createNewProject(request.POST)
         if form.is_valid():
@@ -39,7 +52,12 @@ def create_project(request):
     
 
 def create_issue(request, project_id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/login')
+    
     if request.method == "POST":
+        print(request.user)
+
         form = createNewIssue(request.POST)
         if form.is_valid():
             title = form.cleaned_data["title"]
@@ -47,8 +65,9 @@ def create_issue(request, project_id):
             date_created = datetime.datetime.now()
             status = "P"
             type = form.cleaned_data["type"]
-            project = Project.objects.get(id=project_id)           
-            issue = Issue(title=title, description=description, date_created=date_created, status=status, type=type, project=project)
+            project = Project.objects.get(id=project_id)
+            user = request.user
+            issue = Issue(title=title, description=description, date_created=date_created, status=status, type=type, project=project, user =user)
             issue.save()
             return HttpResponseRedirect(f"/issues/{project_id}")
     else: #if method==GET
