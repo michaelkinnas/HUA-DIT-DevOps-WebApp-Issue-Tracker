@@ -32,21 +32,21 @@
             {% csrf_token %}
             <div class="text-center">
                 <div class="col-auto">
+
+
                     <select class="form-select" , aria-label="Default select example" , name="status">
-                        <option selected>Change Status</option>
+                        <option selected value="0">Change Status</option>
                         <option value="P">Pending</option>
                         <option value="I">In Progress</option>
                         <option value="C">Completed</option>
                     </select>
+
                     <select class="form-select" , aria-label="Default select example" , name="assign_to">
-                        <option selected>Assign to</option>
+                        <option selected value="0">Assign to</option>
                         {% for user in users%}
                         <option value="{{user.id}}">{{user}}</option>
                         {% endfor %}
-                        <!-- <option value="2">Dev2</option>
-                        <option value="3">Dev3</option> -->
                     </select>
-
                     <button type="submit" class="btn btn-primary mb-3" name="save" value="save">Save</button>
                 </div>
             </div>

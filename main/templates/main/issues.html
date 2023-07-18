@@ -17,24 +17,35 @@
     <div class="card-header text-danger" style="display: flex; justify-content: space-between;">
         <b>{{issue.get_type_display}}</b>
         {%if issue.status == 'C'%}
-        <span class="badge bg-secondary">{{issue.get_status_display}}</span>
+        <div>
+            <span class="badge bg-secondary">{{issue.get_status_display}}</span>
+        </div>
         {% elif issue.status == 'I'%}
-        <span class="badge bg-success">{{issue.get_status_display}}</span>
+        <div>
+            <span class="badge bg-success">{{issue.get_status_display}}</span>
+        </div>
         {% else %}
-        <span class="badge bg-warning text-dark">{{issue.get_status_display}}</span>
+        <div>
+            <span class="badge bg-warning text-dark">{{issue.get_status_display}}</span>
+        </div>
         {%endif%}
+
     </div>
     <div class="card-body ">
         <h5 class="card-title">{{issue.title}}</h5>
     </div>
     <div class="card-footer bg-transparent border-danger" style="display: flex; justify-content: space-between;">
-        <span> Opened on {{issue.date_created}} by <b>{{issue.created_by}}</b></span>
-        {%if issue.assigned_to%}
-        <span> Assigned to <b>{{issue.assigned_to}}</b></span>
-        {% else %}
-        <span> Not assigned</span>
-        {% endif %}
-        <a href="/issue/{{issue.id}}" class="btn btn-primary">Details</a>
+        <div>
+            Opened on {{issue.date_created}} by <b>{{issue.created_by}}</b>
+        </div>
+        <div>
+            {%if issue.assigned_to%}
+            <span> Assigned to <b>{{issue.assigned_to}}</b></span>
+            {% else %}
+            <span> Not assigned</span>
+            {% endif %}
+            <a href="/issue/{{issue.id}}" class="btn btn-primary">Details</a>
+        </div>
     </div>
 </div>
 
@@ -43,24 +54,35 @@
     <div class="card-header text-success" style="display: flex; justify-content: space-between;">
         <b>{{issue.get_type_display}}</b>
         {%if issue.status == 'C'%}
-        <span class="badge bg-secondary">{{issue.get_status_display}}</span>
+        <div>
+            <span class="badge bg-secondary">{{issue.get_status_display}}</span>
+        </div>
         {% elif issue.status == 'I'%}
-        <span class="badge bg-success">{{issue.get_status_display}}</span>
+        <div>
+            <span class="badge bg-success">{{issue.get_status_display}}</span>
+        </div>
         {% else %}
-        <span class="badge bg-warning text-dark">{{issue.get_status_display}}</span>
-        {% endif %}
+        <div>
+            <span class="badge bg-warning text-dark">{{issue.get_status_display}}</span>
+        </div>
+        {%endif%}
     </div>
     <div class="card-body ">
         <h5 class="card-title">{{issue.title}}</h5>
     </div>
     <div class="card-footer bg-transparent border-success" style="display: flex; justify-content: space-between;">
-        <span> Opened on {{issue.date_created}} by <b>{{issue.created_by}}</b></span>
-        {%if issue.assigned_to%}
-        <span> Assigned to <b>{{issue.assigned_to}}</b></span>
-        {% else %}
-        <span> Not assigned</span>
-        {% endif %}
-        <a href="/issue/{{issue.id}}" class="btn btn-primary">Details</a>
+        <div>
+            Opened on {{issue.date_created}} by <b>{{issue.created_by}}</b>
+        </div>
+        <div>
+            {%if issue.assigned_to%}
+            <span> Assigned to <b>{{issue.assigned_to}}</b></span>
+            {% else %}
+            <span> Not assigned</span>
+            {% endif %}
+            <a href="/issue/{{issue.id}}" class="btn btn-primary">Details</a>
+        </div>
+
     </div>
 </div>
 {%else%}
@@ -68,24 +90,36 @@
     <div class="card-header text-primary" style="display: flex; justify-content: space-between;">
         <b>{{issue.get_type_display}}</b>
         {%if issue.status == 'C'%}
-        <span class="badge bg-secondary">{{issue.get_status_display}}</span>
+        <div>
+            <span class="badge bg-secondary">{{issue.get_status_display}}</span>
+        </div>
         {% elif issue.status == 'I'%}
-        <span class="badge bg-success">{{issue.get_status_display}}</span>
+        <div>
+            <span class="badge bg-success">{{issue.get_status_display}}</span>
+        </div>
         {% else %}
-        <span class="badge bg-warning text-dark">{{issue.get_status_display}}</span>
+        <div>
+            <span class="badge bg-warning text-dark">{{issue.get_status_display}}</span>
+        </div>
         {%endif%}
     </div>
     <div class="card-body">
         <h5 class="card-title">{{issue.title}}</h5>
     </div>
     <div class="card-footer bg-transparent border-primary" style="display: flex; justify-content: space-between;">
-        <span> Opened on {{issue.date_created}} by <b>{{issue.created_by}}</b></span>
-        {%if issue.assigned_to%}
-        <span> Assigned to <b>{{issue.assigned_to}}</b></span>
-        {% else %}
-        <span> Not assigned</span>
-        {% endif %}
-        <a href="/issue/{{issue.id}}" class="btn btn-primary">Details</a>
+
+        <div>
+            Opened on {{issue.date_created}} by <b>{{issue.created_by}}</b>
+        </div>
+        <div>
+            {%if issue.assigned_to%}
+            <span> Assigned to <b>{{issue.assigned_to}}</b></span>
+            {% else %}
+            <span> Not assigned</span>
+            {% endif %}
+            <a href="/issue/{{issue.id}}" class="btn btn-primary">Details</a>
+        </div>
+
     </div>
 </div>
 {%endif%}
