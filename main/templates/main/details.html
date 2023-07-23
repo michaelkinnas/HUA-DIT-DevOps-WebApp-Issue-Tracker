@@ -28,6 +28,7 @@
             <h3 style="color:rgb(129, 129, 129);"><b>{{issue.get_status_display}}</b></h3>
             {% endif %}
         </div>
+        {% if perms.main.change_issue %}
         <form method="POST" action="/issue/{{issue.id}}">
             {% csrf_token %}
             <div class="text-center">
@@ -51,6 +52,7 @@
                 </div>
             </div>
         </form>
+        {% endif %}
     </div>
 </div>
 <div class="card-footer text-muted">

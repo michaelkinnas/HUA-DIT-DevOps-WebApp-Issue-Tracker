@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.models import User, Group
 from django.contrib.auth import login, logout, authenticate
+
 from .models import Issue, Project
 from .forms import createNewIssue, createNewProject, RegisterForm
 import datetime
@@ -17,7 +18,7 @@ def issues(request, project_id):
     project = Project.objects.get(id=project_id)    
     return render(request, "main/issues.html", {"project":project})
 
-#TODO Allow only team leaders to change details of issue
+#TODO Allow only team leaders to change details of issue    DONE in template
 @login_required(login_url="/login")
 def issue(request, issue_id):
     if request.method == 'POST':
@@ -35,12 +36,17 @@ def issue(request, issue_id):
         issue.save()
         
     issue = Issue.objects.get(id=issue_id)
-    users = User.objects.all() #TODO Get only users belonging to developer group
+    users = User.objects.all()
     return render(request, "main/details.html", {"issue":issue, "users":users})
 
+
 @login_required(login_url="/login")
+@permission_required('main.add_project', raise_exception=True)
 def create_project(request):
     if request.method == "POST":
+        print(request.user.has_perm('main.change_issue'))
+        # if request.user.has_perm('main.change_issue'):
+            
         form = createNewProject(request.POST)
         if form.is_valid():
             title = form.cleaned_data["title"]
@@ -51,8 +57,10 @@ def create_project(request):
     else: #if method==GET
         form = createNewProject()
     return render(request, "main/create_project.html", {"form":form})
+
     
 @login_required(login_url="/login")
+@permission_required('main.add_issue', raise_exception=True)
 def create_issue(request, project_id):
     if request.method == "POST":
         print(request.user)
@@ -75,15 +83,20 @@ def create_issue(request, project_id):
         form = createNewIssue()
     return render(request, "main/create_issue.html", {"form":form, "project_id":project_id})
     
-# Create your views here.
+
 def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)
+            user.save()
+            # user = form.cleaned_data
+            group = Group.objects.get(name='developer')
+            user.groups.add(group)
             
             login(request, user) #auto login user after registration
-        return redirect('/')
+
+            return redirect('/')
     else:
         form = RegisterForm()
     return render(request, 'registration/register.html', {'form':form})
