@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import login, logout, authenticate
+from django.core.mail import send_mail, BadHeaderError
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 from .models import Issue, Project
 from .forms import createNewIssue, createNewProject, RegisterForm
@@ -18,7 +22,7 @@ def issues(request, project_id):
     project = Project.objects.get(id=project_id)    
     return render(request, "main/issues.html", {"project":project})
 
-#TODO Allow only team leaders to change details of issue    DONE in template
+
 @login_required(login_url="/login")
 def issue(request, issue_id):
     if request.method == 'POST':
@@ -32,6 +36,16 @@ def issue(request, issue_id):
 
         if not assigned_to == '0':
             issue.assigned_to = User.objects.get(id=assigned_to)
+        
+        # send email to user
+        email = issue.assigned_to.email
+        messageBody = f'You have been assigned to work on issue #{issue.id}, Title: {issue.title}. Click <a href="www.google.com">here</a>'
+        sender = f'{request.user.email}'
+
+        try:
+            send_mail("You have been assigned an issue", messageBody, sender, [email], fail_silently=False)
+        except BadHeaderError:
+            return HttpResponse('Invalid header found.')
 
         issue.save()
         
@@ -44,7 +58,7 @@ def issue(request, issue_id):
 @permission_required('main.add_project', raise_exception=True)
 def create_project(request):
     if request.method == "POST":
-        print(request.user.has_perm('main.change_issue'))
+        # print(request.user.has_perm('main.change_issue'))
         # if request.user.has_perm('main.change_issue'):
             
         form = createNewProject(request.POST)
@@ -63,7 +77,7 @@ def create_project(request):
 @permission_required('main.add_issue', raise_exception=True)
 def create_issue(request, project_id):
     if request.method == "POST":
-        print(request.user)
+        # print(request.user)
 
         form = createNewIssue(request.POST)
         if form.is_valid():
