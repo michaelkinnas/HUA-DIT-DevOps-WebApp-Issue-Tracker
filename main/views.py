@@ -11,6 +11,9 @@ from .models import Issue, Project
 from .forms import createNewIssue, createNewProject, RegisterForm
 import datetime
 
+#TODO check what ip does request.META['HTTP_ORIGIN'] returns when deployed to vms
+#TODO implement sending a welcoming email to new users when they register
+
 # Create your views here.
 @login_required(login_url="/login")
 def home(request):   
@@ -37,16 +40,29 @@ def issue(request, issue_id):
         if not assigned_to == '0':
             issue.assigned_to = User.objects.get(id=assigned_to)
         
-        # send email to user
-        email = issue.assigned_to.email
-        messageBody = f'You have been assigned to work on issue #{issue.id}, Title: {issue.title}. Click <a href="www.google.com">here</a>'
-        sender = f'{request.user.email}'
+        # send email to user        
+        topic = 'You have been assigned an issue'     
+        
+        context = {
+            'issue_id':issue.id,
+            'issue_title':issue.title,
+            'issue_description':issue.description,
+            'dev_username': issue.assigned_to.username,
+            'leader_username': request.user.username,
+            'issue_link': request.META['HTTP_ORIGIN'] + '/issue/' + str(issue.id)
+        }
+        # print(request.META['HTTP_ORIGIN'])
+        
+        html_message = render_to_string('email/email.html', context)
+        plain_message = strip_tags(html_message)
+        sender = request.user.email
+        receivers = [issue.assigned_to.email]
 
         try:
-            send_mail("You have been assigned an issue", messageBody, sender, [email], fail_silently=False)
-        except BadHeaderError:
-            return HttpResponse('Invalid header found.')
-
+            send_mail(topic, plain_message, sender, receivers, fail_silently=False, html_message=html_message)
+        except ConnectionError:
+            # return HttpResponse('Invalid header found.')
+            print("Email was not send. Could not connect to SMTP server")
         issue.save()
         
     issue = Issue.objects.get(id=issue_id)
