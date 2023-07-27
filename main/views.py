@@ -32,13 +32,15 @@ def issue(request, issue_id):
         issue = Issue.objects.get(id=issue_id)
 
         status = request.POST.get('status')
-        assigned_to = request.POST.get('assign_to')
+        assigned_to = request.POST.get('assign_to')        
 
         if not status == '0':
             issue.status = status
 
         if not assigned_to == '0':
             issue.assigned_to = User.objects.get(id=assigned_to)
+        
+        issue.save()
         
         # send email to user        
         topic = 'You have been assigned an issue'     
@@ -51,7 +53,7 @@ def issue(request, issue_id):
             'leader_username': request.user.username,
             'issue_link': request.META['HTTP_ORIGIN'] + '/issue/' + str(issue.id)
         }
-        # print(request.META['HTTP_ORIGIN'])
+       
         
         html_message = render_to_string('email/email.html', context)
         plain_message = strip_tags(html_message)
@@ -59,11 +61,10 @@ def issue(request, issue_id):
         receivers = [issue.assigned_to.email]
 
         try:
-            send_mail(topic, plain_message, sender, receivers, fail_silently=False, html_message=html_message)
-        except ConnectionError:
-            # return HttpResponse('Invalid header found.')
+            send_mail(topic, plain_message, sender, receivers, fail_silently=True, html_message=html_message)
+        except ConnectionError:        
             print("Email was not send. Could not connect to SMTP server")
-        issue.save()
+     
         
     issue = Issue.objects.get(id=issue_id)
     users = User.objects.all()
