@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-f0@!3cogcie%0c$5=toc)wm^$5rf3zcy61=a#_4_x-8%y+y3#8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','192.168.56.111', '192.168.56.131']
+ALLOWED_HOSTS = ['127.0.0.1','192.168.56.111', '192.168.56.112']
 
 
 # Application definition
@@ -145,7 +145,9 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = "192.168.56.131"
-EMAIL_PORT = 1025
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_PORT = env("EMAIL_PORT")
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
