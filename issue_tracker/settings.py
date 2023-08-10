@@ -95,14 +95,15 @@ WSGI_APPLICATION = 'issue_tracker.wsgi.application'
 
 # ok
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env("DB_NAME"),
-        'USER': env("DB_USERNAME"),
-        'PASSWORD': env("DB_PASSWORD"),
-        'HOST': env("DB_HOST"),
-        'PORT': env("DB_PORT"),
-    }
+    'default': env.db()
+    # 'extra': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': env("DB_NAME"),
+    #     'USER': env("DB_USERNAME"),
+    #     'PASSWORD': env("DB_PASSWORD"),
+    #     'HOST': env("DB_HOST"),
+    #     'PORT': env("DB_PORT"),
+    # }    
 }
 
 # Password validation
