@@ -97,7 +97,7 @@ WSGI_APPLICATION = 'issue_tracker.wsgi.application'
 # ok
 DATABASES = {
     # 'default': env.db()
-    'extra': {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': env("DB_NAME"),
         'USER': env("DB_USERNAME"),
