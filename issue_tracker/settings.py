@@ -35,7 +35,8 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = env('ALLOWED_HOSTS').split(' ')
 
 
 # Application definition
@@ -95,15 +96,15 @@ WSGI_APPLICATION = 'issue_tracker.wsgi.application'
 
 # ok
 DATABASES = {
-    'default': env.db()
-    # 'extra': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': env("DB_NAME"),
-    #     'USER': env("DB_USERNAME"),
-    #     'PASSWORD': env("DB_PASSWORD"),
-    #     'HOST': env("DB_HOST"),
-    #     'PORT': env("DB_PORT"),
-    # }    
+    # 'default': env.db()
+    'extra': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env("DB_NAME"),
+        'USER': env("DB_USERNAME"),
+        'PASSWORD': env("DB_PASSWORD"),
+        'HOST': env("DB_HOST"),
+        'PORT': env("DB_PORT"),
+    }    
 }
 
 # Password validation
