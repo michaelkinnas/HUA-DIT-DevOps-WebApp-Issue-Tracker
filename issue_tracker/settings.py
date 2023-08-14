@@ -36,8 +36,8 @@ SECRET_KEY = env('SECRET_KEY')
 # DEBUG = True
 
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
-# ALLOWED_HOSTS = env('ALLOWED_HOSTS').split(' ')
-ALLOWED_HOSTS = os.environ['ALLOWED_HOSTS'].split(' ')
+ALLOWED_HOSTS = env('ALLOWED_HOSTS').split(' ')
+# ALLOWED_HOSTS = os.environ['ALLOWED_HOSTS'].split(' ')
 
 
 # Application definition
@@ -97,23 +97,22 @@ WSGI_APPLICATION = 'issue_tracker.wsgi.application'
 
 # ok
 DATABASES = {
-    # 'default': env.db()
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': env("DB_NAME"),
-    #     'USER': env("DB_USERNAME"),
-    #     'PASSWORD': env("DB_PASSWORD"),
-    #     'HOST': env("DB_HOST"),
-    #     'PORT': env("DB_PORT"),
-    # }
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ["DB_NAME"],
-        'USER': os.environ["DB_USERNAME"],
-        'PASSWORD': os.environ["DB_PASSWORD"],
-        'HOST': os.environ["DB_HOST"],
-        'PORT': os.environ["DB_PORT"],
+        'NAME': env("DB_NAME"),
+        'USER': env("DB_USERNAME"),
+        'PASSWORD': env("DB_PASSWORD"),
+        'HOST': env("DB_HOST"),
+        'PORT': env("DB_PORT"),
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': os.environ["DB_NAME"],
+    #     'USER': os.environ["DB_USERNAME"],
+    #     'PASSWORD': os.environ["DB_PASSWORD"],
+    #     'HOST': os.environ["DB_HOST"],
+    #     'PORT': os.environ["DB_PORT"],
+    # }
 }
 
 # Password validation
@@ -162,9 +161,9 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = env('EMAIL_HOST')
-# EMAIL_PORT = env('EMAIL_PORT')
-EMAIL_HOST = os.environ['EMAIL_HOST']
-EMAIL_PORT = os.environ['EMAIL_PORT']
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = env('EMAIL_PORT')
+# EMAIL_HOST = os.environ['EMAIL_HOST']
+# EMAIL_PORT = os.environ['EMAIL_PORT']
 # STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
