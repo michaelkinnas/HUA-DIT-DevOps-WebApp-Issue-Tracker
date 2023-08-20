@@ -84,17 +84,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'issue_tracker.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 # ok
 DATABASES = {
     'default': {
@@ -165,5 +154,4 @@ EMAIL_HOST = env('EMAIL_HOST')
 EMAIL_PORT = env('EMAIL_PORT')
 # EMAIL_HOST = os.environ['EMAIL_HOST']
 # EMAIL_PORT = os.environ['EMAIL_PORT']
-# STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
