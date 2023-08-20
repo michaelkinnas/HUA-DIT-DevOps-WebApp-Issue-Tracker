@@ -145,6 +145,4 @@ LOGOUT_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = env('EMAIL_HOST')
 EMAIL_PORT = env('EMAIL_PORT')
-# EMAIL_HOST = os.environ['EMAIL_HOST']
-# EMAIL_PORT = os.environ['EMAIL_PORT']
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
