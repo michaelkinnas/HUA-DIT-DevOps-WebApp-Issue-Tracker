@@ -149,3 +149,4 @@ EMAIL_PORT = env('EMAIL_PORT')
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
+# Default primary key field type
