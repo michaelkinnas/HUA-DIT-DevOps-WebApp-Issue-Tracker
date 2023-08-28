@@ -14,6 +14,8 @@ from pathlib import Path
 import os
 import environ
 
+
+
 env = environ.Env(
     DEBUG=(bool, True)
 )
@@ -37,11 +39,8 @@ SECRET_KEY = env('SECRET_KEY')
 
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 ALLOWED_HOSTS = env('ALLOWED_HOSTS').split(' ')
-# ALLOWED_HOSTS = os.environ['ALLOWED_HOSTS'].split(' ')
-
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -84,7 +83,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'issue_tracker.wsgi.application'
 
-# ok
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -94,7 +93,10 @@ DATABASES = {
         'HOST': env("DB_HOST"),
         'PORT': env("DB_PORT"),
     }
-
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
 }
 
 # Password validation
@@ -131,6 +133,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = 'static/'
 
 # Default primary key field type
@@ -146,8 +149,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = env('EMAIL_HOST')
 EMAIL_PORT = env('EMAIL_PORT')
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-# Default primary key field type
-# Default primary key field type
-# Default primary key field type
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

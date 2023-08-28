@@ -11,15 +11,13 @@ from .models import Issue, Project
 from .forms import createNewIssue, createNewProject, RegisterForm
 import datetime
 
-#TODO check what ip does request.META['HTTP_ORIGIN'] returns when deployed to vms
-#TODO implement sending a welcoming email to new users when they register
 
-# Create your views here.
 @login_required(login_url="/login")
 def home(request):   
     projects = Project.objects.all()
-    return render(request, "main/projects.html", {"projects":projects}) 
-        
+    return render(request, "main/projects.html", {"projects":projects})
+
+
 @login_required(login_url="/login")
 def issues(request, project_id):
     project = Project.objects.get(id=project_id)    
@@ -40,11 +38,9 @@ def issue(request, issue_id):
         if not assigned_to == '0':
             issue.assigned_to = User.objects.get(id=assigned_to)
         
-        issue.save()
-        
+        issue.save()        
         # send email to user        
-        topic = 'You have been assigned an issue'     
-        
+        topic = 'You have been assigned an issue'        
         context = {
             'issue_id':issue.id,
             'issue_title':issue.title,
@@ -53,8 +49,6 @@ def issue(request, issue_id):
             'leader_username': request.user.username,
             'issue_link': request.META['HTTP_ORIGIN'] + '/issue/' + str(issue.id)
         }
-       
-        
         html_message = render_to_string('email/email.html', context)
         plain_message = strip_tags(html_message)
         sender = request.user.email
@@ -63,8 +57,7 @@ def issue(request, issue_id):
         try:
             send_mail(topic, plain_message, sender, receivers, fail_silently=True, html_message=html_message)
         except ConnectionError:        
-            print("Email was not send. Could not connect to SMTP server")
-     
+            print("Email was not send. Could not connect to SMTP server")     
         
     issue = Issue.objects.get(id=issue_id)
     users = User.objects.all()
@@ -74,10 +67,7 @@ def issue(request, issue_id):
 @login_required(login_url="/login")
 @permission_required('main.add_project', raise_exception=True)
 def create_project(request):
-    if request.method == "POST":
-        # print(request.user.has_perm('main.change_issue'))
-        # if request.user.has_perm('main.change_issue'):
-            
+    if request.method == "POST":            
         form = createNewProject(request.POST)
         if form.is_valid():
             title = form.cleaned_data["title"]
@@ -94,17 +84,13 @@ def create_project(request):
 @permission_required('main.add_issue', raise_exception=True)
 def create_issue(request, project_id):
     if request.method == "POST":
-        # print(request.user)
-
         form = createNewIssue(request.POST)
         if form.is_valid():
-
             title = form.cleaned_data["title"]
             description = form.cleaned_data["description"]
             date_created = datetime.datetime.now()
             status = "P"
             type = form.cleaned_data["type"]
-
             project = Project.objects.get(id=project_id)
             created_by = request.user
             issue = Issue(title=title, description=description, date_created=date_created, status=status, type=type, project=project, created_by=created_by)
@@ -123,10 +109,8 @@ def register(request):
             user.save()
             # user = form.cleaned_data
             group = Group.objects.get(name='developer')
-            user.groups.add(group)
-            
+            user.groups.add(group)           
             login(request, user) #auto login user after registration
-
             return redirect('/')
     else:
         form = RegisterForm()
