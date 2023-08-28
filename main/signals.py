@@ -14,15 +14,22 @@ def createGroupsAndPermissions(sender, **kwargs):
 
 def createTestUsers(sender, **kwargs):
     from django.contrib.auth.models import User, Group
+    import environ
 
-    developer1 = User.objects.create_user('developer1', 'dev1@company.com', 'pass12345')
+    env = environ.Env(
+            DEBUG=(bool, True)
+        )
+    environ.Env.read_env()
+
+
+    developer1 = User.objects.create_user(env('DJANGO_DEV_NAME'), env('DJANGO_DEV_EMAIL'), env('DJANGO_DEV_PASSWORD'))
     if not developer1:
         raise Exception("Error creating user")
     
     group = Group.objects.get(name='developer')
     developer1.groups.add(group)
 
-    leader1 = User.objects.create_user('leader1', 'lead1@company.com', 'pass12345')
+    leader1 = User.objects.create_user(env('DJANGO_LEAD_NAME'), env('DJANGO_LEAD_EMAIL'), env('DJANGO_LEAD_PASSWORD'))
     if not developer1:
         raise Exception("Error creating user")
     
